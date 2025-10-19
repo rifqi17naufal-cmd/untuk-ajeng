@@ -1,51 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pertanyaan Romantis</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pertanyaan Romantis 💞</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f9c5d1, #f7a9e0);
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: fadeIn 1.5s ease;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2em;
+      color: white;
+      margin-bottom: 30px;
+    }
+    .question {
+      margin-bottom: 25px;
+    }
+    textarea {
+      width: 80%;
+      height: 70px;
+      border: none;
+      border-radius: 15px;
+      padding: 10px;
+      resize: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      outline: none;
+    }
+    button {
+      background-color: #ff7eb3;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+    button:hover {
+      background-color: #ff5296;
+      transform: scale(1.05);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-<body class="page page2">
-  <div class="hearts-bg" aria-hidden="true"></div>
+<body>
+  <h1 id="greeting">Hai 💖</h1>
 
-  <header class="top">
-    <h1 id="greeting" class="title animate-fade">Hai, ... 💖</h1>
-  </header>
+  <div class="question">
+    <p>Kapan pertama kali kamu sadar kalau aku sayang banget sama kamu? 💌</p>
+    <textarea id="q1" required></textarea>
+  </div>
 
-  <main class="card animate-fade">
-    <form id="qForm" class="form">
-      <div class="question">
-        <label for="q1">Kapan pertama kali kamu sadar kalau aku sayang banget sama kamu? 💌</label>
-        <textarea id="q1" name="q1" rows="2" required></textarea>
-      </div>
+  <div class="question">
+    <p>Apa hal paling manis yang pernah aku lakukan ke kamu? 🍓</p>
+    <textarea id="q2" required></textarea>
+  </div>
 
-      <div class="question">
-        <label for="q2">Apa hal paling manis yang pernah aku lakukan ke kamu? 🍓</label>
-        <textarea id="q2" name="q2" rows="2" required></textarea>
-      </div>
+  <div class="question">
+    <p>Kalau kita nanti berjodoh, kamu pengen bulan madu ke mana? 🌙</p>
+    <textarea id="q3" required></textarea>
+  </div>
 
-      <div class="question">
-        <label for="q3">Kalau kita nanti berjodoh, kamu pengen bulan madu ke mana? 🌙</label>
-        <textarea id="q3" name="q3" rows="2" required></textarea>
-      </div>
+  <button id="submitBtn">Kirim Jawaban & Lanjut 💕</button>
 
-      <div class="question optional">
-        <label for="q4">Apa lagu yang selalu bikin kamu ingat aku?</label>
-        <input id="q4" name="q4" type="text" placeholder="boleh kosong">
-      </div>
+  <script>
+    // Ambil nama dari localStorage
+    const namaKamu = localStorage.getItem("namakamu");
+    const greeting = document.getElementById("greeting");
+    if (namaKamu) {
+      greeting.textContent = `Hai ${namaKamu} 💖`;
+    }
 
-      <button class="heart-btn" type="submit">Kirim Jawaban & Lanjut <span class="btn-heart">💕</span></button>
-    </form>
-  </main>
+    // Kirim ke WhatsApp kamu
+    document.getElementById("submitBtn").addEventListener("click", function() {
+      const jawaban1 = document.getElementById("q1").value.trim();
+      const jawaban2 = document.getElementById("q2").value.trim();
+      const jawaban3 = document.getElementById("q3").value.trim();
 
-  <nav class="nav">
-    <a href="index.html" class="nav-heart" title="Halaman Isi Nama">🏠</a>
-    <a href="page2.html" class="nav-heart" title="Pertanyaan">💬</a>
-    <a href="page3.html" class="nav-heart" title="Puisi">🌸</a>
-  </nav>
+      if (!jawaban1 || !jawaban2 || !jawaban3) {
+        alert("Isi semua jawaban dulu ya 💞");
+        return;
+      }
 
-  <script src="script.js"></script>
+      const nomorWA = "6282361983900"; // nomor WA kamu
+      const pesan = 
+        `Hai, ini jawaban dari ${namaKamu} 💞%0A%0A` +
+        `1️⃣ ${jawaban1}%0A` +
+        `2️⃣ ${jawaban2}%0A` +
+        `3️⃣ ${jawaban3}%0A%0A` +
+        `💌 Dari website bucin kamu 😘`;
+
+      window.open(`https://wa.me/${nomorWA}?text=${pesan}`, "_blank");
+
+      // Arahkan ke halaman 3 setelah 1 detik
+      setTimeout(() => {
+        window.location.href = "page3.html";
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
